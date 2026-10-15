@@ -4,7 +4,7 @@ const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs');
 
 function arg(k, d){ const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i+1] : d; }
-const SCENE = arg('scene', 'opening');
+const SCENE = arg('scene', 'hall');
 const DUR = parseFloat(arg('dur', '20'));
 const FPS = parseInt(arg('fps', '12'));
 const RS = parseFloat(arg('rs', '0.5'));
@@ -22,6 +22,9 @@ fs.mkdirSync(DIR, { recursive: true });
   const url = 'file://' + path.resolve(__dirname, '../index.html') + `?scene=${SCENE}&rs=${RS}`;
   await page.goto(url);
   await page.waitForFunction('window.READY === true', null, { timeout: 60000 });
+  const cues = await page.evaluate(() => window.CUES || []);
+  fs.writeFileSync(path.resolve(__dirname, `cues_${SCENE}.json`), JSON.stringify(cues));
+  if (cues.length) console.log(`cues: ${cues.length} events dumped`);
   console.log(`READY scene=${SCENE} rs=${RS} viewport=${Math.round(1080*RS)}x${Math.round(1920*RS)} frames[${FROM}..${TO})`);
   let skipped = 0;
   for (let f = FROM; f < TO; f++){

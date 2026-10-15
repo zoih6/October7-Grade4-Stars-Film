@@ -1,0 +1,55 @@
+{
+ "boom": {
+  "title": "Riser Hit sfx 046.wav",
+  "creator": "AudioPapkin",
+  "url": "https://freesound.org/people/AudioPapkin/sounds/649933",
+  "license": "cc0",
+  "dur": 7.303,
+  "size": 128160
+ },
+ "shimmer": {
+  "title": "Shimmery.wav",
+  "creator": "opticaillusions",
+  "url": "https://freesound.org/people/opticaillusions/sounds/521886",
+  "license": "cc0",
+  "dur": 5.0,
+  "size": 119430
+ },
+ "tick": {
+  "title": "assymetric_tick.wav",
+  "creator": "Diboz",
+  "url": "https://freesound.org/people/Diboz/sounds/211203",
+  "license": "cc0",
+  "dur": 0.962,
+  "size": 14395
+ },
+ "paper": {
+  "title": "Papers Flapping; Intense.wav",
+  "creator": "RossBell",
+  "url": "https://freesound.org/people/RossBell/sounds/389440",
+  "license": "cc0",
+  "dur": 3.666,
+  "size": 88399
+ },
+ "riser": {
+  "title": "rise-crash.wav",
+  "url": "https://freesound.org/people/soneproject/sounds/334522",
+  "license": "cc0",
+  "dur": 8.0,
+  "size": 184814
+ },
+ "whoosh": {
+  "title": "Deep Whoosh #1",
+  "url": "https://freesound.org/people/Kinoton/sounds/351256",
+  "license": "cc0",
+  "dur": 3.155,
+  "size": 69196
+ },
+ "chime": {
+  "title": "Door chime bell (single) - old Ford, GM and others.mp3",
+  "url": "https://freesound.org/people/rgjpb/sounds/686265",
+  "license": "cc0",
+  "dur": 1.0,
+  "size": 23898
+ }
+}

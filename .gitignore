@@ -1,5 +1,5 @@
 node_modules/
 out/
-render/frames/
+render/frames_*/
 *.wav
 .DS_Store

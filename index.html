@@ -5,6 +5,9 @@
 <title>نجوم أكتوبر — فيلم أوائل الصف الرابع</title>
 <style>
   @font-face { font-family:'Changa'; src:url('fonts/Changa.ttf') format('truetype'); font-weight:200 800; font-display:block; }
+  @font-face { font-family:'Rakkas'; src:url('fonts/Rakkas.ttf') format('truetype'); font-weight:400; font-display:block; }
+  @font-face { font-family:'Kufi'; src:url('fonts/NotoKufi.ttf') format('truetype'); font-weight:100 900; font-display:block; }
+  @font-face { font-family:'Baloo'; src:url('fonts/BalooBhaijaan2.ttf') format('truetype'); font-weight:400 800; font-display:block; }
   html,body { margin:0; padding:0; background:#04060F; overflow:hidden; }
   canvas { display:block; }
 </style>
@@ -13,11 +16,11 @@
 <canvas id="cv"></canvas>
 <script src="lib/core.js"></script>
 <script src="data/students.js"></script>
-<script src="scenes/opening.js"></script>
+<script src="scenes/hall.js"></script>
 <script>
 (function(){
   const q = new URLSearchParams(location.search);
-  const SCENE = q.get('scene') || 'opening';
+  const SCENE = q.get('scene') || 'hall';
   const RS = parseFloat(q.get('rs') || '1');
   const cv = document.getElementById('cv');
   cv.width = Math.round(1080 * RS); cv.height = Math.round(1920 * RS);
@@ -25,16 +28,19 @@
 
   const IMGS = {};
   const manifest = {
-    sky:   'assets/gen/sky_navy.jpg',
-    burst: 'assets/gen/gold_burst.jpg',
-    logo:  'assets/logo/October_7_School_Logo.webp'
+    sky:     'assets/gen/sky_navy.jpg',
+    burst:   'assets/gen/gold_burst.jpg',
+    logo:    'assets/logo/October_7_School_Logo.webp',
+    laurel:  'assets/gen/laurel.jpg',
+    rosette: 'assets/gen/rosette.jpg'
   };
-  function loadImg(src){ return new Promise((res, rej)=>{ const im = new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+  function loadImg(src){ return new Promise((res)=>{ const im = new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
 
   const jobs = Object.entries(manifest).map(([k,src]) => loadImg(src).then(im => { IMGS[k]=im; }));
   jobs.push(document.fonts.load('800 120px Changa','نجوم'));
-  jobs.push(document.fonts.load('700 90px Changa','مدرسة'));
-  jobs.push(document.fonts.load('600 60px Changa','العلم'));
+  jobs.push(document.fonts.load('400 76px Rakkas','رحاب'));
+  jobs.push(document.fonts.load('600 40px Kufi','مدرسة'));
+  jobs.push(document.fonts.load('700 90px Baloo','يلا'));
   jobs.push(document.fonts.ready);
 
   window.seek = function(t){
