@@ -1,0 +1,1 @@
+{"name":"october7-stars-film","private":true,"type":"commonjs","scripts":{"render":"node render/render.js"},"version":"1.0.0","main":"index.js","directories":{"lib":"lib"},"keywords":[],"author":"","license":"ISC","description":"","dependencies":{"playwright":"^1.64.1"}}

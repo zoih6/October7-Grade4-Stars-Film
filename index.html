@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>نجوم أكتوبر — فيلم أوائل الصف الرابع</title>
+<style>
+  @font-face { font-family:'Changa'; src:url('fonts/Changa.ttf') format('truetype'); font-weight:200 800; font-display:block; }
+  html,body { margin:0; padding:0; background:#04060F; overflow:hidden; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<script src="lib/core.js"></script>
+<script src="data/students.js"></script>
+<script src="scenes/opening.js"></script>
+<script>
+(function(){
+  const q = new URLSearchParams(location.search);
+  const SCENE = q.get('scene') || 'opening';
+  const RS = parseFloat(q.get('rs') || '1');
+  const cv = document.getElementById('cv');
+  cv.width = Math.round(1080 * RS); cv.height = Math.round(1920 * RS);
+  const ctx = cv.getContext('2d');
+
+  const IMGS = {};
+  const manifest = {
+    sky:   'assets/gen/sky_navy.jpg',
+    burst: 'assets/gen/gold_burst.jpg',
+    logo:  'assets/logo/October_7_School_Logo.webp'
+  };
+  function loadImg(src){ return new Promise((res, rej)=>{ const im = new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+
+  const jobs = Object.entries(manifest).map(([k,src]) => loadImg(src).then(im => { IMGS[k]=im; }));
+  jobs.push(document.fonts.load('800 120px Changa','نجوم'));
+  jobs.push(document.fonts.load('700 90px Changa','مدرسة'));
+  jobs.push(document.fonts.load('600 60px Changa','العلم'));
+  jobs.push(document.fonts.ready);
+
+  window.seek = function(t){
+    ctx.setTransform(RS,0,0,RS,0,0);
+    ctx.clearRect(0,0,1080,1920);
+    if (window.Scenes && window.Scenes[SCENE]) window.Scenes[SCENE](ctx, t, IMGS);
+  };
+  window.__ctx = ctx; window.__IMGS = IMGS; window.__RS = RS;
+
+  Promise.all(jobs).then(()=>{
+    window.seek(0);
+    window.READY = true;
+  });
+})();
+</script>
+</body>
+</html>
