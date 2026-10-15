@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <title>نجوم أكتوبر — فيلم أوائل الصف الرابع</title>
 <style>
-  @font-face { font-family:'Changa'; src:url('fonts/Changa.ttf') format('truetype'); font-weight:200 800; font-display:block; }
+  @font-face { font-family:'Cairo';  src:url('fonts/Cairo.ttf') format('truetype'); font-weight:100 1000; font-display:block; }
+  @font-face { font-family:'TajB';   src:url('fonts/Tajawal-Black.ttf') format('truetype'); font-weight:900; font-display:block; }
   @font-face { font-family:'Rakkas'; src:url('fonts/Rakkas.ttf') format('truetype'); font-weight:400; font-display:block; }
-  @font-face { font-family:'Kufi'; src:url('fonts/NotoKufi.ttf') format('truetype'); font-weight:100 900; font-display:block; }
-  @font-face { font-family:'Baloo'; src:url('fonts/BalooBhaijaan2.ttf') format('truetype'); font-weight:400 800; font-display:block; }
+  @font-face { font-family:'Kufi';   src:url('fonts/NotoKufi.ttf') format('truetype'); font-weight:100 900; font-display:block; }
+  @font-face { font-family:'PlexB';  src:url('fonts/IBMPlexSansArabic-Bold.ttf') format('truetype'); font-weight:700; font-display:block; }
   html,body { margin:0; padding:0; background:#04060F; overflow:hidden; }
   canvas { display:block; }
 </style>
@@ -15,12 +16,13 @@
 <body>
 <canvas id="cv"></canvas>
 <script src="lib/core.js"></script>
+<script src="lib/cinema.js"></script>
 <script src="data/students.js"></script>
-<script src="scenes/hall.js"></script>
+<script src="scenes/p1_intro.js"></script>
 <script>
 (function(){
   const q = new URLSearchParams(location.search);
-  const SCENE = q.get('scene') || 'hall';
+  const SCENE = q.get('scene') || 'p1';
   const RS = parseFloat(q.get('rs') || '1');
   const cv = document.getElementById('cv');
   cv.width = Math.round(1080 * RS); cv.height = Math.round(1920 * RS);
@@ -28,19 +30,41 @@
 
   const IMGS = {};
   const manifest = {
-    sky:     'assets/gen/sky_navy.jpg',
-    burst:   'assets/gen/gold_burst.jpg',
-    logo:    'assets/logo/October_7_School_Logo.webp',
-    laurel:  'assets/gen/laurel.jpg',
-    rosette: 'assets/gen/rosette.jpg'
+    sky:      'assets/gen/sky_navy.jpg',
+    burst:    'assets/gen/gold_burst.jpg',
+    logo:     'assets/logo/October_7_School_Logo.webp',
+    laurel:   'assets/gen/laurel.jpg',
+    rosette:  'assets/gen/rosette.jpg',
+    emblem:   'assets/gen/emblem_gold.jpg',
+    library:  'assets/gen/library_hall.jpg',
+    pedestal: 'assets/gen/hall_pedestal.jpg',
+    skyhero:  'assets/gen/sky_hero.jpg',
+    moon:     'assets/gen/moon_night.jpg',
+    hearts:   'assets/gen/hearts_bokeh.jpg',
+    crown:    'assets/gen/crown_gold.jpg',
+    // بورتريهات معالجة
+    mutaz:   'assets/plates/mutaz.png',
+    moyed:   'assets/plates/moyed.png',
+    saad:    'assets/plates/saad.png',
+    anhar:   'assets/plates/anhar.png',
+    shomookh:'assets/plates/shomookh.png',
+    anas:    'assets/plates/anas.png',
+    shouq:   'assets/plates/shouq.png',
+    samar:   'assets/plates/samar.png',
+    waleed:  'assets/plates/waleed.png',
+    rashed:  'assets/plates/rashed.png',
+    asaad_f: 'assets/plates/asaad_f.png',
+    asaad_a: 'assets/plates/asaad_a.png',
+    taher:   'assets/plates/taher.png'
   };
   function loadImg(src){ return new Promise((res)=>{ const im = new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
 
   const jobs = Object.entries(manifest).map(([k,src]) => loadImg(src).then(im => { IMGS[k]=im; }));
-  jobs.push(document.fonts.load('800 120px Changa','نجوم'));
-  jobs.push(document.fonts.load('400 76px Rakkas','رحاب'));
-  jobs.push(document.fonts.load('600 40px Kufi','مدرسة'));
-  jobs.push(document.fonts.load('700 90px Baloo','يلا'));
+  jobs.push(document.fonts.load('1000 130px Cairo','نجوم'));
+  jobs.push(document.fonts.load('900 90px TajB','معتز'));
+  jobs.push(document.fonts.load('400 80px Rakkas','رحاب'));
+  jobs.push(document.fonts.load('700 50px Kufi','مدرسة سبعة أكتوبر'));
+  jobs.push(document.fonts.load('700 80px PlexB','مؤيد'));
   jobs.push(document.fonts.ready);
 
   window.seek = function(t){
